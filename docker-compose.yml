@@ -4,8 +4,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    security_opt:
+      - seccomp:unconfined
     ports:
       - "8080:8080"
+      - "2345:2345"
     # Important to bind/mount your codebase dir to /app dir for live reload
     volumes:
       - ./:/app

@@ -4,15 +4,43 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
+	"time"
+
+	"github.com/gorilla/mux"
 )
 
-func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello World!")
-	})
+const (
+	readTimeout  = 5
+	writeTimeout = 10
+	idleTimeout  = 120
+)
 
-	fmt.Printf("Starting server at port 8080\n")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Fatal(err)
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/plain")
+	returnStatus := http.StatusOK
+	w.WriteHeader(returnStatus)
+	message := fmt.Sprintf("Hello %s!", r.UserAgent())
+	w.Write([]byte(message))
+}
+
+func main() {
+	serverAddress := ":8080"
+	l := log.New(os.Stdout, "sample-srv ", log.LstdFlags|log.Lshortfile)
+	m := mux.NewRouter()
+
+	m.HandleFunc("/", indexHandler)
+
+	srv := &http.Server{
+		Addr:         serverAddress,
+		ReadTimeout:  readTimeout * time.Second,
+		WriteTimeout: writeTimeout * time.Second,
+		IdleTimeout:  idleTimeout * time.Second,
+		Handler:      m,
+	}
+
+	l.Printf("server started at http://localhost%s", serverAddress)
+	if err := srv.ListenAndServe(); err != nil {
+		panic(err)
 	}
 }

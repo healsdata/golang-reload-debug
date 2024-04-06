@@ -1,5 +1,39 @@
 # go-reload-debug
 
+An example of using Air (for live reload) and Delve (for debugging) together in Docker for local development.
+
+## Highlights
+
+This is intended as a simple example of getting the two tools working together. 
+
+For this example, the entry point in the Dockerfile is air 
+
+```CMD ["air", "-c", ".air.toml"]```
+
+On first run and reload, Air builds the new executable.
+
+```go build -o ./.dev/main .```
+
+Then Air uses Delve to run the new executable
+
+```full_bin = "dlv exec ... ./.dev/main```
+
+## Usage
+
+To see it in action, you can run `docker compose up -d` from the root directory.
+
+### Reloading
+
+After that, any edit you make to main.go will trigger a reload. You can test it by changing the message in `indexHandler` to a different string.
+
+### Debugging
+
+To configure debugging in Goland, you'll want to follow the steps outlined in [Attach to a process on a remote machine](https://www.jetbrains.com/help/go/attach-to-running-go-processes-with-debugger.html#attach-to-a-process-on-a-remote-machine)
+
+## Tools
+* [cosmtrek/air](https://github.com/cosmtrek/air): ☁️ Live reload for Go apps
+* [go-delve/delve](https://github.com/go-delve/delve): Debugger for the Go programming language.
+
 ## References
 * [Today I Learned: Golang Live-Reload for Development Using Docker Compose + Air](https://medium.easyread.co/today-i-learned-golang-live-reload-for-development-using-docker-compose-air-ecc688ee076)
 * [Debugging & Live Reloading Go app within Docker Container](https://medium.com/@hananrok/debugging-hot-reloading-go-app-within-docker-container-b44d2929e8bd)
