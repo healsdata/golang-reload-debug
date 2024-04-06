@@ -11,7 +11,7 @@ tmp_dir = ".dev"
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
   follow_symlink = false
-  full_bin = "dlv exec --headless --continue --listen :2345 --accept-multiclient --log --log-dest=/app/.dev/devel-debug.log ./.dev/main"
+  full_bin = "make air-bin"
   include_dir = []
   include_ext = ["go", "tpl", "tmpl", "html"]
   include_file = []
@@ -19,7 +19,7 @@ tmp_dir = ".dev"
   log = "/app/logs/build-errors.log"
   poll = true # Polling is slower than fsnotify, but fsnotify is broken on Windows
   poll_interval = 0
-  post_cmd = []
+  post_cmd = ["echo Hi"]
   pre_cmd = []
   rerun = false
   rerun_delay = 500

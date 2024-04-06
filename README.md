@@ -16,7 +16,7 @@ On first run and reload, Air builds the new executable.
 
 Then Air uses Delve to run the new executable
 
-```full_bin = "dlv exec ... ./.dev/main```
+```dlv exec ... ./.dev/main```
 
 ## Usage
 
