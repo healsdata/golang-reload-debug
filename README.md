@@ -1,6 +1,6 @@
 # go-reload-debug
 
-An example of using Air (for live reload) and Delve (for debugging) together in Docker for local development.
+An example of using Air (for live reload), Delve (for debugging), and Cobra (for CLI commands) together in Docker for local development.
 
 ## Highlights
 
@@ -14,9 +14,9 @@ On first run and reload, Air builds the new executable.
 
 ```go build -o ./.dev/main .```
 
-Then Air uses Delve to run the new executable
+Then Air uses Delve to run the Cobra Cmd
 
-```dlv exec ... ./.dev/main```
+```dlv exec ... ./.dev/main serve```
 
 ## Usage
 
@@ -33,6 +33,7 @@ To configure debugging in Goland, you'll want to follow the steps outlined in [A
 ## Tools
 * [cosmtrek/air](https://github.com/cosmtrek/air): ☁️ Live reload for Go apps
 * [go-delve/delve](https://github.com/go-delve/delve): Debugger for the Go programming language.
+* [spf13/cobra](https://github.com/spf13/cobra): Library for creating powerful modern CLI applications.
 
 ## References
 * [Today I Learned: Golang Live-Reload for Development Using Docker Compose + Air](https://medium.easyread.co/today-i-learned-golang-live-reload-for-development-using-docker-compose-air-ecc688ee076)
